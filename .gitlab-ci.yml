@@ -1,0 +1,16 @@
+image:
+  name: midtrans/infosec-sast
+variables:
+  GIT_DEPTH: 0 # Tells git to fetch all the branches of the project, required by the analysis task
+cache:
+  key: ${CI_JOB_NAME}
+  paths:
+    - .sonar/cache
+sonarqube-check:
+  stage: test
+  script:
+    - /usr/local/bin/entry.sh
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
